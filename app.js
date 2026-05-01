@@ -1,6 +1,15 @@
+// IMPORTS FIREBASE
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  getDocs, 
+  deleteDoc, 
+  doc 
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+// CONFIG FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyB1PrF8UE5TkNB7FDLBb6uhqKEYXF8dqG8",
   authDomain: "escalaapp-cfaea.firebaseapp.com",
@@ -10,12 +19,17 @@ const firebaseConfig = {
   appId: "1:498190680044:web:eaec7887e2253816d1cac9"
 };
 
+// INICIAR FIREBASE
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// SALVAR
 async function salvar() {
-  const nome = document.getElementById("nome").value;
-  const posto = document.getElementById("posto").value;
+  const nomeInput = document.getElementById("nome");
+  const postoInput = document.getElementById("posto");
+
+  const nome = nomeInput.value;
+  const posto = postoInput.value;
 
   if (!nome || !posto) {
     alert("Preencha nome e posto");
@@ -27,28 +41,46 @@ async function salvar() {
     posto
   });
 
-  document.getElementById("nome").value = "";
-  document.getElementById("posto").value = "";
+  nomeInput.value = "";
+  postoInput.value = "";
 
   carregar();
 }
 
+// EXCLUIR
+async function excluir(id) {
+  if (confirm("Deseja excluir este registro?")) {
+    await deleteDoc(doc(db, "efetivo", id));
+    carregar();
+  }
+}
+
+// LISTAR
 async function carregar() {
   const lista = document.getElementById("lista");
   lista.innerHTML = "";
 
   const querySnapshot = await getDocs(collection(db, "efetivo"));
 
-  querySnapshot.forEach((doc) => {
-    const dados = doc.data();
+  querySnapshot.forEach((docSnap) => {
+    const dados = docSnap.data();
 
     const li = document.createElement("li");
-    li.textContent = `${dados.nome} - ${dados.posto}`;
+    li.textContent = `${dados.nome} - ${dados.posto} `;
 
+    // botão excluir
+    const btn = document.createElement("button");
+    btn.textContent = "❌";
+    btn.onclick = () => excluir(docSnap.id);
+
+    li.appendChild(btn);
     lista.appendChild(li);
   });
 }
 
+// CARREGAR AO ABRIR
 carregar();
 
+// GLOBAL
 window.salvar = salvar;
+window.excluir = excluir;
