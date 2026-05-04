@@ -1,0 +1,33 @@
+#lista {
+  list-style: none;
+  padding: 0;
+}
+
+#lista div {
+  background: white;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+#lista button {
+  margin-right: 5px;
+}
+
+/* 🔥 CALENDÁRIO LIMPO */
+#calendarioDias{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.linha{
+  display:flex;
+  gap:10px;
+  white-space:nowrap; /* 🔥 ESSENCIAL */
+}
+
+.box{
+  min-width:40px;
+  text-align:center;
+}
