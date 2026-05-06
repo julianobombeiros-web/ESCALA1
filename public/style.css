@@ -1,33 +1,187 @@
-#lista {
-  list-style: none;
-  padding: 0;
-}
-
-#lista div {
-  background: white;
-  margin-bottom: 8px;
-  padding: 10px;
-  border-radius: 6px;
-}
-
-#lista button {
-  margin-right: 5px;
-}
-
-/* 🔥 CALENDÁRIO LIMPO */
-#calendarioDias{
+body{
+  margin:0;
+  font-family:Segoe UI;
   display:flex;
-  flex-direction:column;
-  gap:6px;
+  background:#f4f6f9;
+}
+
+.sidebar{
+  width:220px;
+  background:#1f2937;
+  color:#fff;
+  height:100vh;
+  padding:20px;
+}
+
+.sidebar h2{ font-size:18px; }
+
+.menu{ margin-top:20px; }
+
+.menu div{
+  padding:10px;
+  cursor:pointer;
+  border-radius:5px;
+}
+
+.menu div:hover{ background:#374151; }
+
+.main{
+  flex:1;
+  padding:20px;
+}
+
+.topo{
+  background:#fff;
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+
+.aba{ display:none; }
+.aba.ativa{ display:block; }
+
+input, select{
+  padding:8px;
+  margin:5px;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+
+button{
+  padding:8px 12px;
+  border:none;
+  background:#2563eb;
+  color:#fff;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+/* ===== GERAL ===== */
+
+.calendario-container{
+  overflow-x:auto;
+  background:#fff;
+  padding:10px;
+  border-radius:8px;
+}
+
+#headerDias{
+  display:grid;
 }
 
 .linha{
-  display:flex;
-  gap:10px;
-  white-space:nowrap; /* 🔥 ESSENCIAL */
+  display:grid;
 }
 
-.box{
-  min-width:40px;
+.nome-item{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  background:#e5e7eb;
+  border:1px solid #ccc;
+}
+
+.dia{
   text-align:center;
+  font-weight:bold;
+  border:1px solid #ccc;
+}
+
+.celula{
+  height:30px;
+  border:1px solid #ddd;
+}
+
+.fim-semana{
+  background:#fff1f2 !important;
+}
+
+.dia.fim-semana{
+  background:#fecaca !important;
+  color:#991b1b !important;
+  font-weight:bold;
+}
+
+.celula.fim-semana{
+  background:#fff1f2 !important;
+}
+
+/* ===== EDITOR ===== */
+
+.editor-container{
+  overflow-x:auto;
+  background:#fff;
+  padding:10px;
+  border-radius:8px;
+}
+
+#editorHeader,
+#editorLinhas{
+  width:max-content;
+}
+
+.editor-linha{
+  display:grid;
+  width:max-content;
+}
+
+.editor-funcao{
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  background:#e5e7eb;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+}
+
+.editor-dia{
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+  background:#f9fafb;
+  font-size:11px;
+}
+
+.editor-input{
+  height:24px;
+  border:1px solid #ddd;
+  box-sizing:border-box;
+  font-size:11px;
+  padding:2px 4px;
+  outline:none;
+}
+
+.editor-input.nome{
+  width:140px;
+  text-align:center;
+}
+.editor-input.hora{
+  width:30px;
+  text-align:center;
+}
+
+.editor-fds{
+  background:#fee2e2 !important; 
+}
+
+.editor-funcao-extra{
+  background:#f9fafb;
+}
+
+.editor-erro{
+  background:#ef4444 !important;
+  color:#fff !important;
+  border:2px solid #b91c1c !important;
+}
+.editor-duplicado{
+  background:#dc2626 !important;
+  color:#fff !important;
+  border:2px solid #7f1d1d !important;
 }
